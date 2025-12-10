@@ -1,0 +1,12 @@
+#child-page {
+    margin: 10px;
+    .header-box {
+        display: flex;
+        .header-title {
+            font-size: 17px;
+            font-weight: bold;
+            color: #cfe2ff;
+            padding: 10px 5px;
+        }
+    }
+}

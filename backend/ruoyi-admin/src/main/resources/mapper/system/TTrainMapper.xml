@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TTrainMapper">
+    
+    <resultMap type="TTrain" id="TTrainResult">
+        <result property="id"    column="id"    />
+        <result property="trainName"    column="train_name"    />
+        <result property="trainInfo"    column="train_info"    />
+        <result property="trainTime"    column="train_time"    />
+        <result property="trainCompany"    column="train_company"    />
+        <result property="trainPlace"    column="train_place"    />
+        <result property="trainPerson"    column="train_person"    />
+    </resultMap>
+
+    <sql id="selectTTrainVo">
+        select id, train_name, train_info, train_time, train_company, train_place, train_person from t_train
+    </sql>
+
+    <select id="selectTTrainList" parameterType="TTrain" resultMap="TTrainResult">
+        <include refid="selectTTrainVo"/>
+        <where>  
+            <if test="trainName != null  and trainName != ''"> and train_name like concat('%', #{trainName}, '%')</if>
+            <if test="trainInfo != null  and trainInfo != ''"> and train_info = #{trainInfo}</if>
+            <if test="trainTime != null "> and train_time = #{trainTime}</if>
+            <if test="trainCompany != null  and trainCompany != ''"> and train_company = #{trainCompany}</if>
+            <if test="trainPlace != null  and trainPlace != ''"> and train_place = #{trainPlace}</if>
+            <if test="trainPerson != null  and trainPerson != ''"> and train_person = #{trainPerson}</if>
+        </where>
+    </select>
+    
+    <select id="selectTTrainById" parameterType="String" resultMap="TTrainResult">
+        <include refid="selectTTrainVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTTrain" parameterType="TTrain">
+        insert into t_train
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="trainName != null">train_name,</if>
+            <if test="trainInfo != null">train_info,</if>
+            <if test="trainTime != null">train_time,</if>
+            <if test="trainCompany != null">train_company,</if>
+            <if test="trainPlace != null">train_place,</if>
+            <if test="trainPerson != null">train_person,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="trainName != null">#{trainName},</if>
+            <if test="trainInfo != null">#{trainInfo},</if>
+            <if test="trainTime != null">#{trainTime},</if>
+            <if test="trainCompany != null">#{trainCompany},</if>
+            <if test="trainPlace != null">#{trainPlace},</if>
+            <if test="trainPerson != null">#{trainPerson},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTTrain" parameterType="TTrain">
+        update t_train
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="trainName != null">train_name = #{trainName},</if>
+            <if test="trainInfo != null">train_info = #{trainInfo},</if>
+            <if test="trainTime != null">train_time = #{trainTime},</if>
+            <if test="trainCompany != null">train_company = #{trainCompany},</if>
+            <if test="trainPlace != null">train_place = #{trainPlace},</if>
+            <if test="trainPerson != null">train_person = #{trainPerson},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTTrainById" parameterType="String">
+        delete from t_train where id = #{id}
+    </delete>
+
+    <delete id="deleteTTrainByIds" parameterType="String">
+        delete from t_train where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

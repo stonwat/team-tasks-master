@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TDigitalemployeeMapper">
+    
+    <resultMap type="TDigitalemployee" id="TDigitalemployeeResult">
+        <result property="id"    column="id"    />
+        <result property="orderError1"    column="order_error1"    />
+        <result property="orderComplete1"    column="order_complete1"    />
+        <result property="orderError2"    column="order_error2"    />
+        <result property="orderComplete2"    column="order_complete2"    />
+        <result property="orderError3"    column="order_error3"    />
+        <result property="orderComplete3"    column="order_complete3"    />
+        <result property="orderError4"    column="order_error4"    />
+        <result property="orderComplete4"    column="order_complete4"    />
+        <result property="orderError5"    column="order_error5"    />
+        <result property="orderComplete5"    column="order_complete5"    />
+        <result property="orderRank"    column="order_rank"    />
+        <result property="orderScore"    column="order_score"    />
+        <result property="orderPersent"    column="order_persent"    />
+        <result property="employeeType"    column="employee_type"    />
+        <result property="dataTime"    column="data_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectTDigitalemployeeVo">
+        select id, order_error1, order_complete1, order_error2, order_complete2, order_error3, order_complete3, order_error4, order_complete4, order_error5, order_complete5, order_rank, order_score, order_persent, employee_type, data_time, remark from t_digitalemployee
+    </sql>
+
+    <select id="selectTDigitalemployeeList" parameterType="TDigitalemployee" resultMap="TDigitalemployeeResult">
+        <include refid="selectTDigitalemployeeVo"/>
+        <where>  
+            <if test="orderError1 != null  and orderError1 != ''"> and order_error1 = #{orderError1}</if>
+            <if test="orderComplete1 != null  and orderComplete1 != ''"> and order_complete1 = #{orderComplete1}</if>
+            <if test="orderError2 != null  and orderError2 != ''"> and order_error2 = #{orderError2}</if>
+            <if test="orderComplete2 != null  and orderComplete2 != ''"> and order_complete2 = #{orderComplete2}</if>
+            <if test="orderError3 != null  and orderError3 != ''"> and order_error3 = #{orderError3}</if>
+            <if test="orderComplete3 != null  and orderComplete3 != ''"> and order_complete3 = #{orderComplete3}</if>
+            <if test="orderError4 != null  and orderError4 != ''"> and order_error4 = #{orderError4}</if>
+            <if test="orderComplete4 != null  and orderComplete4 != ''"> and order_complete4 = #{orderComplete4}</if>
+            <if test="orderError5 != null  and orderError5 != ''"> and order_error5 = #{orderError5}</if>
+            <if test="orderComplete5 != null  and orderComplete5 != ''"> and order_complete5 = #{orderComplete5}</if>
+            <if test="orderRank != null  and orderRank != ''"> and order_rank = #{orderRank}</if>
+            <if test="orderScore != null  and orderScore != ''"> and order_score = #{orderScore}</if>
+            <if test="orderPersent != null  and orderPersent != ''"> and order_persent = #{orderPersent}</if>
+            <if test="employeeType != null  and employeeType != ''"> and employee_type = #{employeeType}</if>
+            <if test="dataTime != null "> and data_time = #{dataTime}</if>
+        </where>
+        ORDER BY data_time DESC
+    </select>
+    
+    <select id="selectTDigitalemployeeById" parameterType="String" resultMap="TDigitalemployeeResult">
+        <include refid="selectTDigitalemployeeVo"/>
+        where id = #{id}
+    </select>
+    
+    <select id="selectTDigitalemployeeListByYearMonth" parameterType="TDigitalemployee" resultMap="TDigitalemployeeResult">
+        <include refid="selectTDigitalemployeeVo"/>
+
+        <where>
+            <if test="dataTime != null ">
+                and DATE_FORMAT(data_time,'%Y-%m') = #{dataTime}
+             </if>
+
+        </where>
+    </select>
+        
+    <insert id="insertTDigitalemployee" parameterType="TDigitalemployee">
+        insert into t_digitalemployee
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="orderError1 != null">order_error1,</if>
+            <if test="orderComplete1 != null">order_complete1,</if>
+            <if test="orderError2 != null">order_error2,</if>
+            <if test="orderComplete2 != null">order_complete2,</if>
+            <if test="orderError3 != null">order_error3,</if>
+            <if test="orderComplete3 != null">order_complete3,</if>
+            <if test="orderError4 != null">order_error4,</if>
+            <if test="orderComplete4 != null">order_complete4,</if>
+            <if test="orderError5 != null">order_error5,</if>
+            <if test="orderComplete5 != null">order_complete5,</if>
+            <if test="orderRank != null">order_rank,</if>
+            <if test="orderScore != null">order_score,</if>
+            <if test="orderPersent != null">order_persent,</if>
+            <if test="employeeType != null">employee_type,</if>
+            <if test="dataTime != null">data_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="orderError1 != null">#{orderError1},</if>
+            <if test="orderComplete1 != null">#{orderComplete1},</if>
+            <if test="orderError2 != null">#{orderError2},</if>
+            <if test="orderComplete2 != null">#{orderComplete2},</if>
+            <if test="orderError3 != null">#{orderError3},</if>
+            <if test="orderComplete3 != null">#{orderComplete3},</if>
+            <if test="orderError4 != null">#{orderError4},</if>
+            <if test="orderComplete4 != null">#{orderComplete4},</if>
+            <if test="orderError5 != null">#{orderError5},</if>
+            <if test="orderComplete5 != null">#{orderComplete5},</if>
+            <if test="orderRank != null">#{orderRank},</if>
+            <if test="orderScore != null">#{orderScore},</if>
+            <if test="orderPersent != null">#{orderPersent},</if>
+            <if test="employeeType != null">#{employeeType},</if>
+            <if test="dataTime != null">#{dataTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTDigitalemployee" parameterType="TDigitalemployee">
+        update t_digitalemployee
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orderError1 != null">order_error1 = #{orderError1},</if>
+            <if test="orderComplete1 != null">order_complete1 = #{orderComplete1},</if>
+            <if test="orderError2 != null">order_error2 = #{orderError2},</if>
+            <if test="orderComplete2 != null">order_complete2 = #{orderComplete2},</if>
+            <if test="orderError3 != null">order_error3 = #{orderError3},</if>
+            <if test="orderComplete3 != null">order_complete3 = #{orderComplete3},</if>
+            <if test="orderError4 != null">order_error4 = #{orderError4},</if>
+            <if test="orderComplete4 != null">order_complete4 = #{orderComplete4},</if>
+            <if test="orderError5 != null">order_error5 = #{orderError5},</if>
+            <if test="orderComplete5 != null">order_complete5 = #{orderComplete5},</if>
+            <if test="orderRank != null">order_rank = #{orderRank},</if>
+            <if test="orderScore != null">order_score = #{orderScore},</if>
+            <if test="orderPersent != null">order_persent = #{orderPersent},</if>
+            <if test="employeeType != null">employee_type = #{employeeType},</if>
+            <if test="dataTime != null">data_time = #{dataTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTDigitalemployeeById" parameterType="String">
+        delete from t_digitalemployee where id = #{id}
+    </delete>
+
+    <delete id="deleteTDigitalemployeeByIds" parameterType="String">
+        delete from t_digitalemployee where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

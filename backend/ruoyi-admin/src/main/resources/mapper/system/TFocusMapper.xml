@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TFocusMapper">
+    
+    <resultMap type="TFocus" id="TFocusResult">
+        <result property="id"    column="id"    />
+        <result property="focusName"    column="focus_name"    />
+        <result property="focusInfo"    column="focus_info"    />
+        <result property="focusProgress"    column="focus_progress"    />
+        <result property="focusPersent"    column="focus_persent"    />
+        <result property="focusEndtime"    column="focus_endtime"    />
+        <result property="focusPerson"    column="focus_person"    />
+        <result property="focusType"    column="focus_type"    />
+        <result property="focusPlan"    column="focus_plan"    />
+    </resultMap>
+
+    <sql id="selectTFocusVo">
+        select id, focus_name, focus_info, focus_progress, focus_persent, focus_endtime, focus_person, focus_type, focus_plan from t_focus
+    </sql>
+
+    <select id="selectTFocusList" parameterType="TFocus" resultMap="TFocusResult">
+        <include refid="selectTFocusVo"/>
+        <where>  
+            <if test="focusName != null  and focusName != ''"> and focus_name like concat('%', #{focusName}, '%')</if>
+            <if test="focusInfo != null  and focusInfo != ''"> and focus_info = #{focusInfo}</if>
+            <if test="focusProgress != null  and focusProgress != ''"> and focus_progress = #{focusProgress}</if>
+            <if test="focusPersent != null  and focusPersent != ''"> and focus_persent = #{focusPersent}</if>
+            <if test="focusEndtime != null  and focusEndtime != ''"> and focus_endtime = #{focusEndtime}</if>
+            <if test="focusPerson != null  and focusPerson != ''"> and focus_person = #{focusPerson}</if>
+            <if test="focusType != null  and focusType != ''"> and focus_type = #{focusType}</if>
+            <if test="focusPlan != null  and focusPlan != ''"> and focus_plan = #{focusPlan}</if>
+        </where>
+        ORDER BY focus_type 
+    </select>
+    
+    <select id="selectTFocusById" parameterType="String" resultMap="TFocusResult">
+        <include refid="selectTFocusVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTFocus" parameterType="TFocus">
+        insert into t_focus
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="focusName != null">focus_name,</if>
+            <if test="focusInfo != null">focus_info,</if>
+            <if test="focusProgress != null">focus_progress,</if>
+            <if test="focusPersent != null">focus_persent,</if>
+            <if test="focusEndtime != null">focus_endtime,</if>
+            <if test="focusPerson != null">focus_person,</if>
+            <if test="focusType != null">focus_type,</if>
+            <if test="focusPlan != null">focus_plan,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="focusName != null">#{focusName},</if>
+            <if test="focusInfo != null">#{focusInfo},</if>
+            <if test="focusProgress != null">#{focusProgress},</if>
+            <if test="focusPersent != null">#{focusPersent},</if>
+            <if test="focusEndtime != null">#{focusEndtime},</if>
+            <if test="focusPerson != null">#{focusPerson},</if>
+            <if test="focusType != null">#{focusType},</if>
+            <if test="focusPlan != null">#{focusPlan},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTFocus" parameterType="TFocus">
+        update t_focus
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="focusName != null">focus_name = #{focusName},</if>
+            <if test="focusInfo != null">focus_info = #{focusInfo},</if>
+            <if test="focusProgress != null">focus_progress = #{focusProgress},</if>
+            <if test="focusPersent != null">focus_persent = #{focusPersent},</if>
+            <if test="focusEndtime != null">focus_endtime = #{focusEndtime},</if>
+            <if test="focusPerson != null">focus_person = #{focusPerson},</if>
+            <if test="focusType != null">focus_type = #{focusType},</if>
+            <if test="focusPlan != null">focus_plan = #{focusPlan},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTFocusById" parameterType="String">
+        delete from t_focus where id = #{id}
+    </delete>
+
+    <delete id="deleteTFocusByIds" parameterType="String">
+        delete from t_focus where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

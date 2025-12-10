@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TListMapper">
+    
+    <resultMap type="TList" id="TListResult">
+        <result property="id"    column="id"    />
+        <result property="type"    column="type"    />
+        <result property="department"    column="department"    />
+        <result property="application"    column="application"    />
+        <result property="index1"    column="index1"    />
+        <result property="target"    column="target"    />
+        <result property="score"    column="score"    />
+    </resultMap>
+
+    <sql id="selectTListVo">
+        select id, type, department, application, index1, target, score from t_list
+    </sql>
+
+    <select id="selectTListList" parameterType="TList" resultMap="TListResult">
+        <include refid="selectTListVo"/>
+        <where>  
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="department != null  and department != ''"> and department = #{department}</if>
+            <if test="application != null  and application != ''"> and application = #{application}</if>
+            <if test="index1 != null  and index1 != ''"> and index1 = #{index1}</if>
+            <if test="target != null  and target != ''"> and target = #{target}</if>
+            <if test="score != null  and score != ''"> and score = #{score}</if>
+        </where>
+    </select>
+    
+    <select id="selectTListById" parameterType="Long" resultMap="TListResult">
+        <include refid="selectTListVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTList" parameterType="TList">
+        insert into t_list
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="type != null">type,</if>
+            <if test="department != null">department,</if>
+            <if test="application != null">application,</if>
+            <if test="index1 != null">index1,</if>
+            <if test="target != null">target,</if>
+            <if test="score != null">score,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="type != null">#{type},</if>
+            <if test="department != null">#{department},</if>
+            <if test="application != null">#{application},</if>
+            <if test="index1 != null">#{index1},</if>
+            <if test="target != null">#{target},</if>
+            <if test="score != null">#{score},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTList" parameterType="TList">
+        update t_list
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="type != null">type = #{type},</if>
+            <if test="department != null">department = #{department},</if>
+            <if test="application != null">application = #{application},</if>
+            <if test="index1 != null">index1 = #{index1},</if>
+            <if test="target != null">target = #{target},</if>
+            <if test="score != null">score = #{score},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTListById" parameterType="Long">
+        delete from t_list where id = #{id}
+    </delete>
+
+    <delete id="deleteTListByIds" parameterType="String">
+        delete from t_list where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

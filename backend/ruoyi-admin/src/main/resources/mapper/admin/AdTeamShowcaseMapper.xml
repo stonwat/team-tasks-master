@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.admin.mapper.AdTeamShowcaseMapper">
+    
+    <resultMap type="AdTeamShowcase" id="AdTeamShowcaseResult">
+        <result property="id"    column="id"    />
+        <result property="title"    column="title"    />
+        <result property="showDate"    column="show_date"    />
+        <result property="description"    column="description"    />
+        <result property="imageUrl"    column="image_url"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="isDeleted"    column="is_deleted"    />
+    </resultMap>
+
+    <sql id="selectAdTeamShowcaseVo">
+        select id, title, show_date, description, image_url, create_time, update_time, is_deleted from ad_team_showcase
+    </sql>
+
+    <select id="selectAdTeamShowcaseList" parameterType="AdTeamShowcase" resultMap="AdTeamShowcaseResult">
+        <include refid="selectAdTeamShowcaseVo"/>
+        <where>  
+            <if test="title != null  and title != ''"> and title = #{title}</if>
+            <if test="showDate != null "> and show_date = #{showDate}</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+            <if test="imageUrl != null  and imageUrl != ''"> and image_url = #{imageUrl}</if>
+            <if test="isDeleted != null "> and is_deleted = #{isDeleted}</if>
+        </where>
+    </select>
+    
+    <select id="selectAdTeamShowcaseById" parameterType="String" resultMap="AdTeamShowcaseResult">
+        <include refid="selectAdTeamShowcaseVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertAdTeamShowcase" parameterType="AdTeamShowcase" useGeneratedKeys="true" keyProperty="id">
+        insert into ad_team_showcase
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="title != null and title != ''">title,</if>
+            <if test="showDate != null">show_date,</if>
+            <if test="description != null">description,</if>
+            <if test="imageUrl != null and imageUrl != ''">image_url,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="isDeleted != null">is_deleted,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="title != null and title != ''">#{title},</if>
+            <if test="showDate != null">#{showDate},</if>
+            <if test="description != null">#{description},</if>
+            <if test="imageUrl != null and imageUrl != ''">#{imageUrl},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAdTeamShowcase" parameterType="AdTeamShowcase">
+        update ad_team_showcase
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="showDate != null">show_date = #{showDate},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="imageUrl != null and imageUrl != ''">image_url = #{imageUrl},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="isDeleted != null">is_deleted = #{isDeleted},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAdTeamShowcaseById" parameterType="String">
+        delete from ad_team_showcase where id = #{id}
+    </delete>
+
+    <delete id="deleteAdTeamShowcaseByIds" parameterType="String">
+        delete from ad_team_showcase where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
