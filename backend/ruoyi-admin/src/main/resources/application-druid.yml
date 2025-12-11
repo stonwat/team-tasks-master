@@ -5,8 +5,12 @@ spring:
         driverClassName: com.mysql.cj.jdbc.Driver
         druid:
             # 主库数据源
+#            master:
+#                url: jdbc:mysql://136.192.230.68:3307/pms?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&allowMultiQueries=true
+#                username: pms
+#                password: pms@Q513855
             master:
-                url: jdbc:mysql://136.192.230.68:3307/pms?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&allowMultiQueries=true
+                url: jdbc:mysql://192.168.200.66:3306/pms?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&allowMultiQueries=true
                 username: pms
                 password: pms@Q513855
             # 从库数据源
