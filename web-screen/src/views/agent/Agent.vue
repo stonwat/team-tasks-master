@@ -8,7 +8,7 @@
                     <div class="d-flex jc-center">
                         <dv-decoration-8 class="dv-dec-8" :color="decorationColor" />
                         <div class="title">
-                            <span class="title-text" @click="gotoIndex">扶摇·数智管理监控平台</span>
+                            <span class="title-text" @click="gotoIndex">黑龙江电信·扶摇数智管理监控平台</span>
                             <dv-decoration-6 class="dv-dec-6" :reverse="true" :color="['#50e3c2', '#67a1e5']" />
                         </div>
                         <dv-decoration-8 class="dv-dec-8" :reverse="true" :color="decorationColor" />
@@ -43,7 +43,6 @@
                 <div class="body-box">
                     <div class="top-box">
                         <dv-border-box-12 style="height: 440px;">
-
                             <AiEmployeeChart />
                         </dv-border-box-12>
                     </div>

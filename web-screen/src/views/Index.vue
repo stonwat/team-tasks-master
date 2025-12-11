@@ -8,7 +8,7 @@
           <div class="d-flex jc-center">
             <dv-decoration-8 class="dv-dec-8" :color="decorationColor" />
             <div class="title">
-              <span class="title-text">扶摇·数智管理监控平台</span>
+              <span class="title-text">黑龙江电信·扶摇数智管理监控平台</span>
               <dv-decoration-6 class="dv-dec-6" :reverse="true" :color="['#50e3c2', '#67a1e5']" />
             </div>
             <dv-decoration-8 class="dv-dec-8" :reverse="true" :color="decorationColor" />
@@ -18,10 +18,10 @@
         <div class="d-flex jc-between px-2">
           <div class="d-flex aside-width">
             <div class="react-left ml-4 react-l-s">
-              <span class="react-left"></span>
+              <span class="react-left-inner"></span>
               <span class="text">{{ dateYear }} {{ dateWeek }} {{ dateDay }}</span>
             </div>
-            <div class="react-left-inner ml-3">
+            <div class="react-left ml-3">
             </div>
           </div>
           <div class="d-flex aside-width">
@@ -29,7 +29,7 @@
               <span class="text" style="width: 100%; text-align: center;">首页</span>
             </div>
             <div class="react-right bg-color-black mr-3">
-              <div class="text fw-b react-right tab-header" style="display: flex;">
+              <div class="text fw-b tab-header" style="display: flex;">
                 <div v-for="(tab, index) in tabs" :key="index" class="tab-item react-right"
                   :class="{ active: activeTab === index }" @click="changeTab(tab, index)">
                   {{ tab }}
