@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TAttachmentMapper">
+    
+    <resultMap type="TAttachment" id="TAttachmentResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="type"    column="type"    />
+        <result property="info"    column="info"    />
+        <result property="url"    column="url"    />
+        <result property="time"    column="time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectTAttachmentVo">
+        select id, name, type, info, url, time, create_by, create_time from t_attachment
+    </sql>
+
+    <select id="selectTAttachmentList" parameterType="TAttachment" resultMap="TAttachmentResult">
+        <include refid="selectTAttachmentVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="info != null  and info != ''"> and info = #{info}</if>
+            <if test="url != null  and url != ''"> and url = #{url}</if>
+            <if test="time != null "> and time = #{time}</if>
+        </where>
+    </select>
+    
+    <select id="selectTAttachmentById" parameterType="Long" resultMap="TAttachmentResult">
+        <include refid="selectTAttachmentVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTAttachment" parameterType="TAttachment">
+        insert into t_attachment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="name != null">name,</if>
+            <if test="type != null">type,</if>
+            <if test="info != null">info,</if>
+            <if test="url != null">url,</if>
+            <if test="time != null">time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="name != null">#{name},</if>
+            <if test="type != null">#{type},</if>
+            <if test="info != null">#{info},</if>
+            <if test="url != null">#{url},</if>
+            <if test="time != null">#{time},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTAttachment" parameterType="TAttachment">
+        update t_attachment
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="info != null">info = #{info},</if>
+            <if test="url != null">url = #{url},</if>
+            <if test="time != null">time = #{time},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTAttachmentById" parameterType="Long">
+        delete from t_attachment where id = #{id}
+    </delete>
+
+    <delete id="deleteTAttachmentByIds" parameterType="String">
+        delete from t_attachment where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
