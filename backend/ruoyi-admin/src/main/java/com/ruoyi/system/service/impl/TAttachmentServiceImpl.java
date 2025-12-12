@@ -2,6 +2,7 @@ package com.ruoyi.system.service.impl;
 
 import java.util.List;
 import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.common.utils.uuid.IdUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.system.mapper.TAttachmentMapper;
@@ -27,7 +28,7 @@ public class TAttachmentServiceImpl implements ITAttachmentService
      * @return 文件类型
      */
     @Override
-    public TAttachment selectTAttachmentById(Long id)
+    public TAttachment selectTAttachmentById(String id)
     {
         return tAttachmentMapper.selectTAttachmentById(id);
     }
@@ -53,6 +54,7 @@ public class TAttachmentServiceImpl implements ITAttachmentService
     @Override
     public int insertTAttachment(TAttachment tAttachment)
     {
+        tAttachment.setId(IdUtils.fastSimpleUUID());
         tAttachment.setCreateTime(DateUtils.getNowDate());
         return tAttachmentMapper.insertTAttachment(tAttachment);
     }
@@ -76,7 +78,7 @@ public class TAttachmentServiceImpl implements ITAttachmentService
      * @return 结果
      */
     @Override
-    public int deleteTAttachmentByIds(Long[] ids)
+    public int deleteTAttachmentByIds(String[] ids)
     {
         return tAttachmentMapper.deleteTAttachmentByIds(ids);
     }
@@ -88,7 +90,7 @@ public class TAttachmentServiceImpl implements ITAttachmentService
      * @return 结果
      */
     @Override
-    public int deleteTAttachmentById(Long id)
+    public int deleteTAttachmentById(String id)
     {
         return tAttachmentMapper.deleteTAttachmentById(id);
     }

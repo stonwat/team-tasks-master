@@ -17,7 +17,7 @@ public interface TAttachmentMapper
      * @param id 文件类型主键
      * @return 文件类型
      */
-    public TAttachment selectTAttachmentById(Long id);
+    public TAttachment selectTAttachmentById(String id);
 
     /**
      * 查询文件类型列表
@@ -49,7 +49,7 @@ public interface TAttachmentMapper
      * @param id 文件类型主键
      * @return 结果
      */
-    public int deleteTAttachmentById(Long id);
+    public int deleteTAttachmentById(String id);
 
     /**
      * 批量删除文件类型
@@ -57,5 +57,5 @@ public interface TAttachmentMapper
      * @param ids 需要删除的数据主键集合
      * @return 结果
      */
-    public int deleteTAttachmentByIds(Long[] ids);
+    public int deleteTAttachmentByIds(String[] ids);
 }

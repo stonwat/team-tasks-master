@@ -64,7 +64,7 @@ public class TAttachmentController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('system:attachment:query')")
     @GetMapping(value = "/{id}")
-    public AjaxResult getInfo(@PathVariable("id") Long id)
+    public AjaxResult getInfo(@PathVariable("id") String id)
     {
         return success(tAttachmentService.selectTAttachmentById(id));
     }
@@ -97,7 +97,7 @@ public class TAttachmentController extends BaseController
     @PreAuthorize("@ss.hasPermi('system:attachment:remove')")
     @Log(title = "文件类型", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids)
+    public AjaxResult remove(@PathVariable String[] ids)
     {
         return toAjax(tAttachmentService.deleteTAttachmentByIds(ids));
     }

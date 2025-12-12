@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.system.mapper.TAttachmentMapper">
-    
+
     <resultMap type="TAttachment" id="TAttachmentResult">
         <result property="id"    column="id"    />
         <result property="name"    column="name"    />
@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectTAttachmentList" parameterType="TAttachment" resultMap="TAttachmentResult">
         <include refid="selectTAttachmentVo"/>
-        <where>  
+        <where>
             <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
             <if test="type != null  and type != ''"> and type = #{type}</if>
             <if test="info != null  and info != ''"> and info = #{info}</if>
@@ -29,12 +29,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="time != null "> and time = #{time}</if>
         </where>
     </select>
-    
-    <select id="selectTAttachmentById" parameterType="Long" resultMap="TAttachmentResult">
+
+    <!-- 修改点1：parameterType 改为 String -->
+    <select id="selectTAttachmentById" parameterType="String" resultMap="TAttachmentResult">
         <include refid="selectTAttachmentVo"/>
         where id = #{id}
     </select>
-        
+
     <insert id="insertTAttachment" parameterType="TAttachment">
         insert into t_attachment
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -46,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="time != null">time,</if>
             <if test="createBy != null">create_by,</if>
             <if test="createTime != null">create_time,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">#{id},</if>
             <if test="name != null">#{name},</if>
@@ -56,7 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="time != null">#{time},</if>
             <if test="createBy != null">#{createBy},</if>
             <if test="createTime != null">#{createTime},</if>
-         </trim>
+        </trim>
     </insert>
 
     <update id="updateTAttachment" parameterType="TAttachment">
@@ -73,12 +74,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </update>
 
-    <delete id="deleteTAttachmentById" parameterType="Long">
+    <!-- 修改点2：parameterType 改为 String -->
+    <delete id="deleteTAttachmentById" parameterType="String">
         delete from t_attachment where id = #{id}
     </delete>
 
+    <!-- 修改点3：parameterType 保持 String (对应 String[]) -->
     <delete id="deleteTAttachmentByIds" parameterType="String">
-        delete from t_attachment where id in 
+        delete from t_attachment where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>
